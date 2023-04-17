@@ -6,7 +6,7 @@ class AlarmClock{
         this.intervalId = null;
     }
 
-    checkTime = 1000 * 60;
+    checkTime = 1000;
 
     addClock(time, callback){
         if ((time == undefined)||(callback == undefined)){
@@ -15,7 +15,6 @@ class AlarmClock{
 
         if (this.alarmCollection.find(item => item.time === time)){
             console.warn(`Уже присутствует звонок на это же время`);
-            return;
         }
 
         this.alarmCollection.push({callback, time, canCall: true});
@@ -43,7 +42,7 @@ class AlarmClock{
 
     start(){
         function checkClock(ring){
-            if ((this.getCurrentFormattedTime() >= ring.time)&&(ring.canCall == true)){
+            if ((this.getCurrentFormattedTime() == ring.time)&&(ring.canCall == true)){
                 ring.callback();
                 ring.canCall = false;
             }
